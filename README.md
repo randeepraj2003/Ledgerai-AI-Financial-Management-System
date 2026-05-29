@@ -1,4 +1,4 @@
-# Ledgerai-Finance-Dashboard
+# Ledgerai-AI-Financial-Management-System
 ### AI-Powered Invoice & Financial Management System
 Where finance meets AI — RAG pipeline, 6 ML models, vector search &amp; LLM-powered chat built on FastAPI + React + PostgreSQL.
 
