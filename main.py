@@ -4,6 +4,7 @@ from app.routers import auth, invoices, analytics, ai_chat, reports, forecast
 from app.database import engine
 from app.models import models
 from app.config import settings
+# from metrics import setup_metrics   
 import os
 
 # Create all DB tables
@@ -32,6 +33,9 @@ app.include_router(analytics.router, prefix="/analytics")
 app.include_router(ai_chat.router, prefix="/ai")
 app.include_router(reports.router, prefix="/reports")
 app.include_router(forecast.router, prefix="/analytics")
+
+# Setup Prometheus metrics — exposes /metrics endpoint  
+# setup_metrics(app)                                       
 
 @app.get("/health")
 def health_check():
