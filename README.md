@@ -156,22 +156,13 @@ npm run dev
 ```
 
 ### 6. Open App
-```
 
 ```
-
----
+```
 
 ## 🔑 Environment Variables
 
 Copy `.env.example` to `.env` and fill in:
-
-```env
-GEMINI_API_KEY=your-gemini-api-key
-ANTHROPIC_API_KEY=your-anthropic-key
-DATABASE_URL=postgresql://postgres:password@localhost:5432/finance_dashboard
-SECRET_KEY=your-secret-key
-```
 
 Get free Gemini API key at: https://aistudio.google.com/apikey
 
