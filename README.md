@@ -4,223 +4,107 @@ Where finance meets AI — RAG pipeline, 6 ML models, vector search &amp; LLM-po
 
 ##  Project Overview
 
-LedgerAI is a full-stack, AI-powered financial management platform designed to automate invoice processing, detect anomalies, predict spending patterns, and enable intelligent document Q&A using RAG (Retrieval-Augmented Generation). The system combines traditional machine learning models with modern LLM capabilities to provide a comprehensive financial intelligence tool.
+# ⚡ LedgerAI — AI-Powered Invoice & Financial Management System
 
-#  Problem It Solves
+> Full-stack AI platform that automates invoice processing, detects financial anomalies, forecasts spending, and enables intelligent document Q&A using RAG + LLM.
 
-| Problem | LedgerAI Solution |
-|---------|------------------|
-| Manual invoice review is slow | AI auto-extracts and categorizes PDF invoices |
-| Hard to spot fraudulent invoices | Isolation Forest anomaly detection flags suspicious ones |
-| No spending forecasting | ARIMA time series predicts future monthly spend |
-| Can't ask questions about invoices | RAG pipeline enables natural language Q&A over PDFs |
-| Vendor risk is unknown | K-Means clustering scores each vendor's risk level |
-| Duplicate invoices go unnoticed | TF-IDF cosine similarity detects duplicates |
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100-green)
+![React](https://img.shields.io/badge/React-18-cyan)
+![ML Models](https://img.shields.io/badge/ML%20Models-6-orange)
+![RAG](https://img.shields.io/badge/RAG-ChromaDB%20+%20Gemini-purple)
 
 ---
 
-##  System Architecture
+## 📌 Overview
+
+LedgerAI is a production-ready financial intelligence platform built with modern AI/ML technologies. It combines traditional machine learning models with Generative AI to provide automated invoice processing, real-time anomaly detection, spending forecasts, and natural language Q&A over financial documents.
+
+---
+
+## ✨ Features
+
+### 🤖 AI & Machine Learning
+- **ARIMA Time Series** — 3-month spending forecast
+- **Random Forest Regressor** — Invoice amount prediction (MAE: $407)
+- **Isolation Forest** — Unsupervised anomaly detection
+- **DBSCAN Clustering** — Spending pattern discovery
+- **K-Means Clustering** — Vendor risk scoring (HIGH/MEDIUM/LOW)
+- **TF-IDF Cosine Similarity** — Duplicate invoice detection
+- **NLP Categorizer** — Auto invoice categorization
+
+### 🔍 RAG Pipeline
+- PDF text extraction using PyMuPDF
+- Vector embeddings using sentence-transformers
+- ChromaDB vector database for similarity search
+- Google Gemini LLM for intelligent Q&A
+- Source citations with relevance scores
+
+### 🧾 Invoice Management
+- PDF drag & drop upload
+- AI-powered auto extraction & categorization
+- Approve / Reject workflow
+- Fraud flag detection
+
+### 🔐 Security
+- JWT authentication
+- Bcrypt password hashing
+- CORS protection
+- Environment variable management
+
+### 📊 Monitoring & DevOps & Data Engineering
+- Apache Airflow pipeline orchestration
+- GitHub Actions CI/CD pipeline
+- Azure App Service deployment
+- Prometheus + Grafana monitoring
+- Email alerting via Alertmanager
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, Vite, Recharts |
+| Backend | FastAPI, Python 3.11, Uvicorn |
+| Database | PostgreSQL, Redis |
+| ML | scikit-learn, statsmodels, pandas |
+| RAG | ChromaDB, sentence-transformers, PyMuPDF |
+| LLM | Google Gemini API |
+| Auth | JWT, Bcrypt |
+| DevOps | Docker, GitHub Actions, Azure |
+| Monitoring | Prometheus, Grafana, Alertmanager |
+| Orchestration | Apache Airflow |
+
+---
+
+## 🏗️ Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    FRONTEND                          │
-│              React + Vite (Port 5173)                │
-│   Dashboard │ Invoices │ AI Assistant │ Analytics    │
-└─────────────────────┬───────────────────────────────┘
-                      │ HTTP Requests
-          ┌───────────┴───────────┐
-          │                       │
-┌─────────▼─────────┐   ┌────────▼────────┐
-│   MAIN BACKEND    │   │  RAG PIPELINE   │
-│ FastAPI (Port 8000)│   │FastAPI (Port 8001)│
-│                   │   │                  │
-│ • Auth (JWT)      │   │ • PDF Extraction │
-│ • Invoice CRUD    │   │ • Chunking       │
-│ • ML Models       │   │ • Embeddings     │
-│ • Analytics       │   │ • Vector Search  │
-│ • Reports         │   │ • Gemini LLM     │
-└─────────┬─────────┘   └────────┬────────┘
-          │                       │
-┌─────────▼─────────┐   ┌────────▼────────┐
-│   PostgreSQL DB   │   │    ChromaDB      │
-│  (Invoice Data)   │   │ (Vector Store)   │
-└───────────────────┘   └─────────────────┘
-```
-
----
-
-##  Tech Stack
-
-### Frontend
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| React | 18.x | UI framework |
-| Vite | 5.x | Build tool & dev server |
-| Recharts | 2.x | Charts & data visualization |
-| CSS Variables | - | Dark theme styling |
-
-### Backend
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| FastAPI | 0.100+ | REST API framework |
-| Python | 3.11 | Core language |
-| Uvicorn | 0.20+ | ASGI server |
-| Pydantic | 2.x | Data validation |
-| SQLAlchemy | 2.x | ORM for database |
-| PostgreSQL | 15.x | Primary database |
-| Redis | 7.x | Caching & session store |
-| JWT (Jose) | - | Authentication tokens |
-| Bcrypt | - | Password hashing |
-
-### Machine Learning
-| Model | Library | Purpose |
-|-------|---------|---------|
-| ARIMA | statsmodels | Time series spend forecasting |
-| Random Forest Regressor | scikit-learn | Invoice amount prediction |
-| DBSCAN | scikit-learn | Spending pattern discovery |
-| Isolation Forest | scikit-learn | Anomaly detection |
-| K-Means Clustering | scikit-learn | Vendor risk scoring |
-| TF-IDF + Cosine Similarity | scikit-learn | Duplicate invoice detection |
-| NLP Categorizer | scikit-learn | Auto invoice categorization |
-
-### RAG Pipeline
-| Technology | Purpose |
-|-----------|---------|
-| PyMuPDF (fitz) | PDF text extraction |
-| sentence-transformers | Text embeddings (all-MiniLM-L6-v2) |
-| ChromaDB | Vector database for similarity search |
-| Google Gemini API | LLM for intelligent Q&A (free tier) |
-| python-dotenv | Environment variable management |
-
-### DevOps & Tools
-| Tool | Purpose |
-|------|---------|
-| Git & GitHub | Version control |
-| Docker | Containerization |
-| VS Code | Development environment |
-| Postman/Swagger | API testing |
-| .env + .gitignore | Secure credential management |
-
----
-
-##  ML Models — Deep Dive
-
-### 1. ARIMA Time Series Forecast
-- **Full Name:** AutoRegressive Integrated Moving Average
-- **Purpose:** Predicts future monthly spending based on historical invoice data
-- **Output:** 3-month forecast with confidence intervals
-- **Fallback:** Average-based prediction when insufficient historical data
-
-### 2. Random Forest Regressor
-- **Trees:** 100 estimators
-- **Purpose:** Predicts expected invoice amount for each vendor
-- **MAE:** ~$407 (Mean Absolute Error)
-- **Features Used:** Vendor encoding, Category, Month, Quarter, Tax amount, Status
-- **Output:** Predicted amount vs actual + deviation percentage
-
-### 3. DBSCAN Clustering
-- **Full Name:** Density-Based Spatial Clustering of Applications with Noise
-- **Parameters:** eps=0.8, min_samples=2
-- **Features:** Amount, Tax ratio, Month
-- **Output:** Spending pattern clusters + outlier detection
-
-### 4. Isolation Forest
-- **Type:** Unsupervised anomaly detection
-- **Purpose:** Detects statistically unusual invoices
-- **Output:** Risk score (0-100%) for each invoice
-- **Key Finding:** Flags invoices that deviate from normal patterns
-
-### 5. K-Means Clustering
-- **Purpose:** Vendor risk profiling
-- **Output:** HIGH / MEDIUM / LOW risk classification
-- **Factors:** Spend amount, frequency, anomaly history
-
-### 6. TF-IDF Cosine Similarity
-- **Full Name:** Term Frequency-Inverse Document Frequency
-- **Purpose:** Detect duplicate or near-duplicate invoices
-- **Method:** Converts invoice text to vectors, measures similarity
-- **Threshold:** Flags invoices with >90% similarity
-
----
-
-##  RAG Pipeline — How It Works
-
-```
-Step 1: User uploads PDF invoice
-           ↓
-Step 2: PyMuPDF extracts text from PDF
-           ↓
-Step 3: Text split into 500-char chunks (with 50-char overlap)
-           ↓
-Step 4: sentence-transformers converts chunks to embeddings
-        (all-MiniLM-L6-v2 model — 384 dimensions)
-           ↓
-Step 5: Embeddings stored in ChromaDB (persistent vector store)
-           ↓
-Step 6: User asks a question
-           ↓
-Step 7: Question embedded using same model
-           ↓
-Step 8: ChromaDB cosine similarity search → Top 5 relevant chunks
-           ↓
-Step 9: Chunks + Question sent to Gemini API
-           ↓
-Step 10: Gemini generates intelligent answer with source citations
-           ↓
-Step 11: Answer displayed in chat with PDF source badges
+┌─────────────────────────────────────┐
+│         React Frontend (5173)        │
+└────────────────┬────────────────────┘
+                 │
+      ┌──────────┴──────────┐
+      │                     │
+┌─────▼──────┐      ┌───────▼──────┐
+│  FastAPI   │      │  RAG Pipeline │
+│ (Port 8000)│      │  (Port 8001)  │
+│            │      │               │
+│ • Auth     │      │ • PDF Extract │
+│ • Invoices │      │ • Embeddings  │
+│ • ML APIs  │      │ • ChromaDB    │
+│ • Reports  │      │ • Gemini LLM  │
+└─────┬──────┘      └───────┬───────┘
+      │                     │
+┌─────▼──────┐      ┌───────▼───────┐
+│ PostgreSQL │      │   ChromaDB    │
+└────────────┘      └───────────────┘
 ```
 
 ---
 
-##  Security Implementation
-
-- **Authentication:** JWT (JSON Web Tokens) with 24-hour expiry
-- **Password:** Bcrypt hashing (never stored in plain text)
-- **API Keys:** Stored in `.env` file, never committed to GitHub
-- **CORS:** Configured to allow only frontend origin
-- **Environment:** `.gitignore` excludes all sensitive files
-
----
-
-##  Project Structure
-
-```
-finance-dashboard/
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── DashboardPage.jsx    # Main dashboard + ML charts
-│   │   │   ├── InvoicesPage.jsx     # Invoice management
-│   │   │   └── ChatPage.jsx         # AI Assistant with RAG
-│   │   ├── services/
-│   │   │   └── api.js               # API service layer
-│   │   └── App.jsx
-│   └── package.json
-│
-├── backend/
-│   ├── app/
-│   │   ├── routers/
-│   │   │   ├── auth.py              # Login, register, JWT
-│   │   │   ├── invoices.py          # Invoice CRUD
-│   │   │   ├── analytics.py         # ML model endpoints
-│   │   │   ├── ai_chat.py           # Chat API
-│   │   │   ├── reports.py           # Report generation
-│   │   │   └── forecast.py          # ARIMA forecasting
-│   │   ├── config.py                # Settings & env vars
-│   │   └── database.py              # DB connection
-│   ├── rag_pipeline.py              # RAG + Gemini system
-│   ├── main.py                      # FastAPI app entry
-│   ├── requirements.txt
-│   ├── .env                         # ← NOT in GitHub
-│   ├── .env.example                 # ← Safe template
-│   └── .gitignore
-│
-└── README.md
-```
-
----
-
-## 🚀 How to Run Locally
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.11+
@@ -228,67 +112,174 @@ finance-dashboard/
 - PostgreSQL 15+
 - Redis 7+
 
-### Setup Steps
-
+### 1. Clone Repository
 ```bash
-# 1. Clone repository
-git clone https://github.com/your-username/ledgerai.git
-cd ledgerai
+git clone https://github.com/randeepraj2003/ledger-ai.git
+cd ledger-ai
+```
 
-# 2. Backend setup
+### 2. Backend Setup
+```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate        # Windows
-pip install -r requirements.txt
 
-# 3. Environment setup
+# Windows
+venv\Scripts\Activate.ps1
+
+# Mac/Linux
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+### 3. Environment Setup
+```bash
 cp .env.example .env
 # Fill in your actual values in .env
+```
 
-# 4. Start main backend
+### 4. Run Backend
+```bash
+# Terminal 1 — Main Backend
 uvicorn main:app --port 8000
 
-# 5. Start RAG pipeline (new terminal)
+# Terminal 2 — RAG Pipeline
 uvicorn rag_pipeline:app --port 8001
+```
 
-# 6. Frontend setup (new terminal)
-cd ../frontend
+### 5. Run Frontend
+```bash
+# Terminal 3
+cd frontend
 npm install
 npm run dev
 ```
 
+### 6. Open App
+```
 
-##  Skills Demonstrated
-
-### Data Science & ML
-- Time series forecasting (ARIMA)
-- Supervised learning (Random Forest)
-- Unsupervised learning (K-Means, DBSCAN)
-- Anomaly detection (Isolation Forest)
-- NLP & text similarity (TF-IDF)
-- Feature engineering & model evaluation
-
-### AI & LLM
-- RAG (Retrieval-Augmented Generation) architecture
-- Vector embeddings & similarity search
-- Prompt engineering for financial domain
-- LLM API integration (Google Gemini)
-- ChromaDB vector database
-
-### Full Stack Development
-- REST API design with FastAPI
-- React component architecture
-- Database design with PostgreSQL
-- JWT authentication flow
-- PDF processing & extraction
-
-### DevOps & Best Practices
-- Environment variable management
-- Git version control
-- Docker containerization
-- API documentation (Swagger)
-- Security best practices
+```
 
 ---
 
-*Built  by Randeep Raj | LedgerAI v1.0 | May 2026*
+## 🔑 Environment Variables
+
+Copy `.env.example` to `.env` and fill in:
+
+```env
+GEMINI_API_KEY=your-gemini-api-key
+ANTHROPIC_API_KEY=your-anthropic-key
+DATABASE_URL=postgresql://postgres:password@localhost:5432/finance_dashboard
+SECRET_KEY=your-secret-key
+```
+
+Get free Gemini API key at: https://aistudio.google.com/apikey
+
+---
+
+## 📁 Project Structure
+
+```
+ledger-ai/
+├── .github/
+│   └── workflows/
+│       └── ci_cd.yml          # GitHub Actions CI/CD
+├── azure/
+│   ├── azure_deploy.sh        # Azure deployment script
+│   └── startup.sh
+├── monitoring/
+│   ├── prometheus.yml         # Prometheus config
+│   ├── alert_rules.yml        # Alert rules
+│   ├── alertmanager.yml       # Email alerts
+│   └── docker-compose.monitoring.yml
+├── backend/
+│   ├── airflow/
+│   │   └── dags/
+│   │       └── ledgerai_pipeline.py  # Airflow DAG
+│   ├── app/
+│   │   ├── routers/           # API endpoints
+│   │   ├── models/            # DB models
+│   │   └── config.py
+│   ├── main.py                # FastAPI entry
+│   ├── rag_pipeline.py        # RAG + Gemini
+│   ├── metrics.py             # Prometheus metrics
+│   └── requirements.txt
+├── frontend/
+│   └── src/
+│       ├── pages/
+│       │   ├── DashboardPage.jsx
+│       │   ├── InvoicesPage.jsx
+│       │   └── ChatPage.jsx
+│       └── services/
+│           └── api.js
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+## 📊 ML Models Detail
+
+| Model | Purpose | Result |
+|-------|---------|--------|
+| ARIMA | Spending forecast | 3-month prediction |
+| Random Forest | Amount prediction | MAE: $407 |
+| Isolation Forest | Anomaly detection | Risk: 0-100% |
+| DBSCAN | Pattern clustering | 2 clusters + outliers |
+| K-Means | Vendor risk | HIGH/MEDIUM/LOW |
+| TF-IDF | Duplicate detection | Cosine similarity |
+
+---
+
+## 🔄 Airflow Pipeline
+
+Runs automatically every midnight:
+```
+Fetch Invoices → Anomaly Detection → Spending Forecast
+             → Vendor Risk Scoring → Daily Report
+             → Save to DB → Email Alert
+```
+
+---
+
+## ☁️ Cloud Deployment
+
+Deploy to Azure App Service:
+```bash
+cd azure
+bash azure_deploy.sh
+```
+
+---
+
+## 📈 Monitoring
+
+Start monitoring stack (requires Docker):
+```bash
+cd monitoring
+docker compose -f docker-compose.monitoring.yml up -d
+```
+
+Access:
+- Grafana: http://localhost:3000
+- Prometheus: http://localhost:9090
+- Alerts: http://localhost:9093
+
+---
+
+## 👤 Author
+
+**Randeep Raj**
+- GitHub: [@randeepraj2003](https://github.com/randeepraj2003)
+- LinkedIn: [linkedin.com/in/randeep-raj](https://linkedin.com/in/randeep-raj)
+- Email: Randeepraj207107@gmail.com
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+⭐ If you found this helpful, please give it a star!
