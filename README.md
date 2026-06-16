@@ -1,10 +1,4 @@
-# Ledgerai-AI-Financial-Management-System
-### AI-Powered Invoice & Financial Management System
-Where finance meets AI — RAG pipeline, 6 ML models, vector search &amp; LLM-powered chat built on FastAPI + React + PostgreSQL.
-
-##  Project Overview
-
-# ⚡ LedgerAI — AI-Powered Invoice & Financial Management System
+#  LedgerAI — AI-Powered Invoice & Financial Management System
 
 > Full-stack AI platform that automates invoice processing, detects financial anomalies, forecasts spending, and enables intelligent document Q&A using RAG + LLM.
 
@@ -16,13 +10,13 @@ Where finance meets AI — RAG pipeline, 6 ML models, vector search &amp; LLM-po
 
 ---
 
-## 📌 Overview
+## Project Overview
 
 LedgerAI is a production-ready financial intelligence platform built with modern AI/ML technologies. It combines traditional machine learning models with Generative AI to provide automated invoice processing, real-time anomaly detection, spending forecasts, and natural language Q&A over financial documents.
 
 ---
 
-## ✨ Features
+##  Features
 
 ### 🤖 AI & Machine Learning
 - **ARIMA Time Series** — 3-month spending forecast
